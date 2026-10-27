@@ -16,6 +16,9 @@ export function friendlyError(error: unknown): string {
   if (/network request failed|failed to fetch/i.test(message)) {
     return 'Sem conexão com a internet.';
   }
+  if (/abort|timeout/i.test(message)) {
+    return 'A conexão demorou demais. Tente novamente.';
+  }
   if (/rate limit/i.test(message)) {
     return 'Muitas tentativas. Aguarde um instante e tente de novo.';
   }

@@ -10,6 +10,8 @@ export function useReorder() {
         getStore(order.store_id),
         listProducts(order.store_id),
       ]);
+      if (!store.is_open)
+        throw new Error('Esta loja está fechada agora. Tente novamente mais tarde.');
       return reorderCart(order, store, products);
     },
   });

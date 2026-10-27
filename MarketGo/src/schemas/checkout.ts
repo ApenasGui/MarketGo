@@ -18,7 +18,7 @@ export function makeCheckoutSchema(total: number) {
     .superRefine((data, ctx) => {
       if (data.payment !== 'cash' || data.changeFor.trim() === '') return;
       const value = parseMoney(data.changeFor);
-      if (Number.isNaN(value) || value <= 0) {
+      if (!Number.isFinite(value) || value <= 0) {
         ctx.addIssue({ code: 'custom', path: ['changeFor'], message: 'Valor inválido' });
       } else if (value < total) {
         ctx.addIssue({
@@ -29,3 +29,5 @@ export function makeCheckoutSchema(total: number) {
       }
     });
 }
+
+export type CheckoutFormData = z.infer<ReturnType<typeof makeCheckoutSchema>>;

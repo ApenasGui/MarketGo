@@ -10,6 +10,8 @@ if (!url || !key) {
   );
 }
 export const supabase = createClient(url, key, {
+  // O TanStack Query controla as tentativas; não duplique o backoff no transporte.
+  db: { retry: false, timeout: 15_000 },
   auth: {
     storage: Platform.OS === 'web' ? undefined : AsyncStorage,
     autoRefreshToken: true,

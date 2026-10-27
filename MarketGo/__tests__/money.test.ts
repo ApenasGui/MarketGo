@@ -30,3 +30,12 @@ describe('roundMoney / toInputMoney', () => {
     expect(toInputMoney(1234.5)).toBe('1234,50');
   });
 });
+
+describe('entradas inválidas de dinheiro', () => {
+  it.each(['-50', 'abc50', '1e3', '1,,2', '9'.repeat(400)])('recusa %s', (text) => {
+    expect(parseMoney(text)).toBeNaN();
+  });
+  it('permite o prefixo monetário em um valor brasileiro', () => {
+    expect(parseMoney('R$ 1.234,56')).toBe(1234.56);
+  });
+});

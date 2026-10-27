@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { ColorValue } from 'react-native';
 import { useCart } from '@/context/CartContext';
 import { colors } from '@/theme';
@@ -17,12 +18,19 @@ function tabIcon(name: IconName) {
 }
 export default function TabsLayout() {
   const { count } = useCart();
+  const insets = useSafeAreaInsets();
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,
+        tabBarStyle: {
+          height: 64 + insets.bottom,
+          paddingTop: 6,
+          paddingBottom: Math.max(8, insets.bottom),
+        },
+        tabBarLabelStyle: { fontSize: 12 },
       }}
     >
       <Tabs.Screen

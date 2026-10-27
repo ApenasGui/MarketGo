@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.10",
+    "@playwright/test": "^1.64.1",
     "@types/jest": "^30.0.0",
     "@types/react": "~19.3.0",
     "eslint": "^9.39.5",
@@ -56,7 +57,11 @@
     "test:db": "node --test \"supabase/tests/*.test.mjs\"",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write src __tests__ supabase/tests",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "export:web": "expo export --platform web",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "format:check": "prettier --check src __tests__ supabase/tests e2e scripts/*.mjs playwright.config.mjs"
   },
   "jest": {
     "preset": "jest-expo",
@@ -65,7 +70,8 @@
     },
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/supabase/"
+      "/supabase/",
+      "/e2e/"
     ]
   },
   "private": true

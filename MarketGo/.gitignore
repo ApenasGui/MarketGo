@@ -47,3 +47,8 @@ example
 .env
 .env.*
 !.env.example
+
+# Testes de interface
+dist-e2e/
+test-results/
+playwright-report/
